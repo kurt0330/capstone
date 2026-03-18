@@ -125,12 +125,21 @@
     margin-top: 5px;
 }
 
-.grid-checkbox-parent{
+.grid-checkbox-1line{
     display: grid;
     grid-template-columns: 1fr;
     gap: 5px;
     font-size: 13px;
     margin-top: 5px;
+}
+
+.grid-checkbox-tab {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 5px;
+    margin-top:10px; 
+    font-size: 11px;
+    padding-left: 20px;
 }
 
 small {
