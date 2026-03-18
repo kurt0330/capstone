@@ -14,6 +14,7 @@
     min-height: 1056px;
     padding: 1in; 
     padding-top: 50px;
+    padding-bottom: 50px;
     position: relative;
     box-shadow: 0 0 15px rgba(0,0,0,0.2);
     z-index: 5;
@@ -124,6 +125,14 @@
     margin-top: 5px;
 }
 
+.grid-checkbox-parent{
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 5px;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
 small {
     font-size: 10px;
     font-weight: normal;
@@ -198,7 +207,6 @@ small {
     border-right: none;
 }
 
-/* The Curved Active Button Look */
 .nav-btn.active {
     background-color: #0504AA;
     color: white;
@@ -206,7 +214,6 @@ small {
     padding-right: 15px; 
 }
 
-/* Hover effect for unvisited steps */
 .nav-btn:not(.active):hover {
     background-color: #e6e6ff;
 }
