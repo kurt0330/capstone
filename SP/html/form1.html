@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CommuniServe | Form Registration</title>
+    <link rel="stylesheet" href="../css/global.css">
+    <link rel="stylesheet" href="../css/form.css">
+</head>
+<body>
+    <header class="main-header">
+        <h1 class="web-title">COMMUNISERVE</h1>
+    </header>
+
+    <div class="page-background">
+       <div class="step-progress-wrapper">
+            <div class="main-circle">1</div>
+            <div class="segmented-bar">
+                <button class="nav-btn active" onclick="location.href='form1.html'">Personal Information</button>
+                <button class="nav-btn" onclick="location.href='form2.html'">Job Preference</button>
+                <button class="nav-btn" onclick="location.href=''">...</button>
+                <button class="nav-btn" onclick="location.href=''">...</button>
+                <button class="nav-btn" onclick="location.href=''">...</button>
+                <button class="nav-btn" onclick="location.href=''">File Attachment</button>
+            </div>
+        </div>
+
+         
+
+        <div class="page-container">
+            <div class="cell-nsrp">
+                <strong>NSRP Form 1.REV 3</strong>
+            </div>
+
+            <img src="../../images/LOGO.png" alt="Logo" class="form-logo">
+
+            <div class="cell-header">
+                <p>Republic of the Philippines <br>
+                Department of Labor and Employment <br>
+                <strong>NATION SKILLS REGISTRATION PROGRAM</strong><br>
+                <strong>REGISTRATION FORM</strong></p>
+            </div>
+
+            <div class="form-instructions">
+                <p><strong>INSTRUCTIONS:</strong> Please fill out the form legibly.
+                    Check appropriate boxes. Please do not leave any items unanswered. Indicate “NA” if not applicable.
+                </p>
+            </div>
+
+            <form action="form1">
+
+                
+            </form>
+            <div class="section-header">
+                <strong>I. PERSONAL INFORMATION</strong>
+            </div>
+
+            <div class="input-container">
+                <div class="side left-side">
+                    <div class="field-group">
+                        <label class="label-name">LAST NAME</label>
+                        <input type="text" class="table-input" required>
+                    </div>
+                    <div class="field-group">
+                        <label class="label-name">MIDDLE NAME</label>
+                        <input type="text" class="table-input">
+                    </div>
+                </div>
+
+                <div class="side right-side">
+                    <div class="field-group">
+                        <label class="label-name">FIRST NAME</label> 
+                        <input type="text" class="table-input" required>
+                    </div>
+                    <div class="field-group">
+                        <label class="label-name">SUFFIX (Sr., JR.)</label>
+                        <input type="text" class="table-input">
+                    </div>
+                </div>
+            </div>
+
+             <div class="input-row">
+                    <div class="field-group flex-1">
+                        <label class="label-name">DATE OF BIRTH <small>(mm/dd/yyyy)</small></label>
+                        <input type="date" class="table-input" required>
+                    </div>
+                    <div class="field-group flex-1">
+                        <label class="label-name">AGE</label>
+                        <input type="number" class="table-input" required>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div class="field-group flex-1">
+                        <label class="label-name">SEX</label>
+                        <div class="checkbox-group">
+                            <input type="checkbox"> Male 
+                            <input type="checkbox"> Female
+                        </div>
+                    </div>
+                    <div class="field-group flex-1">
+                        <label class="label-name">PRESENT ADDRESS</label>
+                        <input type="text" id="pres_street" class="table-input" placeholder="House No./ Street Village" required>
+                        <input type="text" id="pres_brgy" class="table-input" placeholder="Barangay" required>
+                        <input type="text" id="pres_city" class="table-input" placeholder="Municipality/City" required>
+                        <input type="text" id="pres_prov" class="table-input" placeholder="Province" required>
+                    </div>
+                </div>
+
+                <div class="input-row">
+                    <div class="field-group flex-1">
+                        <label class="label-name">CIVIL STATUS</label>
+                        <div class="grid-checkbox">
+                            <span><input type="checkbox"> Single</span>
+                            <span><input type="checkbox"> Married</span>
+                            <span><input type="checkbox"> Widowed</span>
+                            <span><input type="checkbox"> Separated</span>
+                        </div>
+                    </div>
+                    <div class="field-group flex-1">
+                        <label class="label-name">PERMANENT ADDRESS <small>(Check if same as present)</small> <input type="checkbox" id="same_as_permanent"></label>
+                        <input type="text" id="perm_street" class="table-input" placeholder="House No./ Street Village">
+                        <input type="text" id="perm_brgy" class="table-input" placeholder="Barangay">
+                        <input type="text" id="perm_city" class="table-input" placeholder="Municipality/City">
+                        <input type="text" id="perm_prov" class="table-input" placeholder="Province">
+                    </div>
+                </div>
+
+                <div class="section-header" style="margin-top: 20px;">
+                    <strong>EMPLOYMENT STATUS</strong>
+                </div>
+                <div class="input-row">
+                    <div class="field-group flex-1">
+                        <div class="checkbox-group">
+                            <input type="checkbox"> Employed
+                            <input type="checkbox"> Unemployed
+                        </div>
+                        <div class="grid-checkbox" style="margin-top:10px; font-size: 11px;">
+                            <span><input type="checkbox"> Wage Employed</span>
+                            <span><input type="checkbox"> Self Employed</span>
+                            <span><input type="checkbox"> Fresh Graduate</span>
+                            <span><input type="checkbox"> Finished Contract</span>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div> 
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="../js/form1.js"></script>
+</body>
+</html>

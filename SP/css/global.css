@@ -1,0 +1,26 @@
+body {
+    background-color: White;
+    font-family: Arial;
+    font-size: 14px;
+    color: black;
+}
+
+.main-header {
+    position: fixed; 
+    top: 0; 
+    left: 0;
+    width: 100%;
+    background-color: #0504AA; 
+    padding: 30px 10px; 
+    text-align: left; 
+    border-bottom: 2px solid #f0f0f0;
+    z-index: 1000;
+}
+
+.web-title {
+    margin: 1.5px;
+    font-size: 35px;
+    color: white; 
+    letter-spacing: 1.5px;
+    font-family: Arial;
+}
