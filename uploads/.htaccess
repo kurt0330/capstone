@@ -1,0 +1,16 @@
+# /uploads/.htaccess
+# Block direct browser access to all uploaded files.
+# Files should only be served through PHP after authorization checks.
+
+Options -Indexes
+
+# Deny direct access to all files in this folder and subfolders
+<FilesMatch ".*">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# If using Apache 2.4+ instead use:
+# <FilesMatch ".*">
+#     Require all denied
+# </FilesMatch>

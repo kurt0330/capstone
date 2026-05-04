@@ -3,176 +3,652 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CommuniServe | Form Registration</title>
+    <title>CommuniServe | Service Provider Registration</title>
+    <!--
+    ╔══════════════════════════════════════════════════════════╗
+    ║  FILE : /SP/html/form1.html                              ║
+    ║  USES : ../css/global.css   ← your file, untouched      ║
+    ║         ../css/form.css     ← your file, untouched      ║
+    ║         ../css/sp_steps.css ← NEW, additive only        ║
+    ║         ../js/form1.js      ← your address-sync, kept   ║
+    ║         ../js/sp_steps.js   ← NEW step + validation     ║
+    ╚══════════════════════════════════════════════════════════╝
+    -->
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/form.css">
+    <link rel="stylesheet" href="../css/sp_steps.css">
 </head>
 <body>
-    <header class="main-header">
-        <h1 class="web-title">COMMUNISERVE</h1>
-    </header>
 
-    <div class="page-background">
-       <div class="step-progress-wrapper">
-            <div class="main-circle">1</div>
-            <div class="segmented-bar">
-                <button class="nav-btn active" onclick="location.href='form1.html'">Personal Information</button>
-                <button class="nav-btn" onclick="location.href='form2.html'">Professional Profile</button>
-                <button class="nav-btn" onclick="location.href=''">...</button>
-                <button class="nav-btn" onclick="location.href=''">...</button>
-                <button class="nav-btn" onclick="location.href=''">...</button>
-                <button class="nav-btn" onclick="location.href=''">File Attachment</button>
+<!-- HEADER — global.css: .main-header / .web-title -->
+<header class="main-header">
+    <h1 class="web-title">COMMUNISERVE</h1>
+</header>
+
+<!-- PAGE WRAPPER — form.css: .page-background -->
+<div class="page-background">
+
+    <!-- ══ PROGRESS BAR ══
+         Reuses existing: .step-progress-wrapper .main-circle
+                          .segmented-bar .nav-btn .nav-btn.active
+         sp_steps.js adds/removes .active and .done on nav-btns  -->
+    <div class="step-progress-wrapper">
+        <div class="main-circle" id="stepCircle">1</div>
+        <div class="segmented-bar">
+            <button class="nav-btn active" data-step="1" type="button">Personal<br>Information</button>
+            <button class="nav-btn"        data-step="2" type="button">Professional<br>Profile</button>
+            <button class="nav-btn"        data-step="3" type="button">Service<br>Selection</button>
+            <button class="nav-btn"        data-step="4" type="button">Assessment</button>
+            <button class="nav-btn"        data-step="5" type="button">File<br>Attachment</button>
+        </div>
+    </div>
+
+
+    <!-- ══════════════════════════════════════════════════════════
+         STEP 1 — PERSONAL INFORMATION
+         DB: users  +  nsrp_details
+    ══════════════════════════════════════════════════════════ -->
+    <div class="page-container step-panel" id="step-1">
+
+        <div class="cell-nsrp"><strong>DOLE Form 1</strong></div>
+        <img src="../../images/LOGO.png" alt="Anini-y LGU Seal" class="form-logo">
+        <div class="cell-header">
+            <p>Republic of the Philippines<br>
+               Department of Labor and Employment<br>
+               <strong>DOLE REGISTRATION FORM</strong></p>
+        </div>
+        <div class="form-instructions">
+            <p><strong>INSTRUCTIONS:</strong> Please fill out the form legibly.
+               Check appropriate boxes. Do not leave any items unanswered.
+               Indicate "NA" if not applicable.</p>
+        </div>
+
+        <div class="section-header"><strong>PERSONAL INFORMATION</strong></div>
+
+        <!-- Name — existing .input-container / .side pattern -->
+        <div class="input-container">
+            <div class="side left-side">
+                <div class="field-group">
+                    <label class="label-name">LAST NAME <span class="req">*</span></label>
+                    <!-- nsrp_details.last_name VARCHAR(80) -->
+                    <input type="text" id="last_name" name="last_name"
+                           class="table-input" placeholder="e.g. dela Cruz" required>
+                </div>
+                <div class="field-group">
+                    <label class="label-name">MIDDLE NAME</label>
+                    <!-- nsrp_details.middle_name VARCHAR(80) -->
+                    <input type="text" id="middle_name" name="middle_name"
+                           class="table-input" placeholder="e.g. Santos">
+                </div>
+            </div>
+            <div class="side right-side">
+                <div class="field-group">
+                    <label class="label-name">FIRST NAME <span class="req">*</span></label>
+                    <!-- nsrp_details.first_name VARCHAR(80) -->
+                    <input type="text" id="first_name" name="first_name"
+                           class="table-input" placeholder="e.g. Juan" required>
+                </div>
+                <div class="field-group">
+                    <label class="label-name">SUFFIX (Sr., Jr., III, etc.)</label>
+                    <!-- nsrp_details.suffix VARCHAR(10) -->
+                    <input type="text" id="suffix" name="suffix"
+                           class="table-input" placeholder="e.g. Jr.">
+                </div>
             </div>
         </div>
 
-         
-
-        <div class="page-container">
-            <div class="cell-nsrp">
-                <strong>DOLE Form 1</strong>
+        <!-- DOB + Age -->
+        <div class="input-row">
+            <div class="field-group flex-1">
+                <label class="label-name">DATE OF BIRTH <small>(mm/dd/yyyy)</small> <span class="req">*</span></label>
+                <!-- nsrp_details.date_of_birth DATE -->
+                <input type="date" id="date_of_birth" name="date_of_birth"
+                       class="table-input" required>
             </div>
-
-            <img src="../../images/LOGO.png" alt="Logo" class="form-logo">
-
-            <div class="cell-header">
-                <p>Republic of the Philippines <br>
-                Department of Labor and Employment <br>
-                <strong>DOLE REGISTRATION FORM</strong></p>
+            <div class="field-group flex-1">
+                <label class="label-name">AGE <span class="req">*</span></label>
+                <!-- nsrp_details.age TINYINT UNSIGNED — auto-filled from DOB by sp_steps.js -->
+                <input type="number" id="age" name="age"
+                       class="table-input" min="15" max="120"
+                       placeholder="Auto-computed" readonly>
             </div>
-
-            <div class="form-instructions">
-                <p><strong>INSTRUCTIONS:</strong> Please fill out the form legibly.
-                    Check appropriate boxes. Please do not leave any items unanswered. Indicate “NA” if not applicable.
-                </p>
-            </div>
-
-            <form action="form1">
-
-                
-            </form>
-            <div class="section-header">
-                <strong>PERSONAL INFORMATION</strong>
-            </div>
-
-            <div class="input-container">
-                <div class="side left-side">
-                    <div class="field-group">
-                        <label class="label-name">LAST NAME</label>
-                        <input type="text" class="table-input" required>
-                    </div>
-                    <div class="field-group">
-                        <label class="label-name">MIDDLE NAME</label>
-                        <input type="text" class="table-input">
-                    </div>
-                </div>
-
-                <div class="side right-side">
-                    <div class="field-group">
-                        <label class="label-name">FIRST NAME</label> 
-                        <input type="text" class="table-input" required>
-                    </div>
-                    <div class="field-group">
-                        <label class="label-name">SUFFIX (Sr., JR., III, etc.)</label>
-                        <input type="text" class="table-input">
-                    </div>
-                </div>
-            </div>
-
-             <div class="input-row">
-                    <div class="field-group flex-1">
-                        <label class="label-name">DATE OF BIRTH <small>(mm/dd/yyyy)</small></label>
-                        <input type="date" class="table-input" required>
-                    </div>
-                    <div class="field-group flex-1">
-                        <label class="label-name">AGE</label>
-                        <input type="number" class="table-input" required>
-                    </div>
-                </div>
-
-                <div class="input-row">
-                    <div class="field-group flex-1">
-                        <label class="label-name">SEX</label>
-                        <div class="checkbox-group">
-                            <input type="checkbox"> Male 
-                            <input type="checkbox"> Female
-                        </div>
-                    </div>
-                    <div class="field-group flex-1">
-                        <label class="label-name">PRESENT ADDRESS</label>
-                        <input type="text" id="pres_street" class="table-input" placeholder="House No./ Street Village" required>
-                        <input type="text" id="pres_brgy" class="table-input" placeholder="Barangay" required>
-                        <input type="text" id="pres_city" class="table-input" placeholder="Municipality/City" required>
-                        <input type="text" id="pres_prov" class="table-input" placeholder="Province" required>
-                    </div>
-                </div>
-
-                <div class="input-row">
-                    <div class="field-group flex-1">
-                        <label class="label-name">CIVIL STATUS</label>
-                        <div class="grid-checkbox">
-                            <span><input type="checkbox"> Single</span>
-                            <span><input type="checkbox"> Married</span>
-                            <span><input type="checkbox"> Widowed</span>
-                            <span><input type="checkbox"> Separated</span>
-                        </div>
-                    </div>
-                    <div class="field-group flex-1">
-                        <label class="label-name">PERMANENT ADDRESS <small>(Check if same as present)</small> <input type="checkbox" id="same_as_permanent"></label>
-                        <input type="text" id="perm_street" class="table-input" placeholder="House No./ Street Village">
-                        <input type="text" id="perm_brgy" class="table-input" placeholder="Barangay">
-                        <input type="text" id="perm_city" class="table-input" placeholder="Municipality/City">
-                        <input type="text" id="perm_prov" class="table-input" placeholder="Province">
-                    </div>
-                </div>
-
-                <div class="input-row">
-                    <div class="field-group flex-1">
-                        <label class="label-name">FATHER'S NAME</label>
-                        <input type="text" id="fath_name" class="table-input">
-                        <label class="label-name">CONTACT NUMBER </labl>
-                        <input type="text" id="fath_no" class="table-input">
-                    </div>
-    
-                    <div class="field-group flex-1">
-                        <label class="label-name">MOTHER'S NAME </labl>
-                        <input type="text" id="moth_name" class="table-input">
-                        <label class="label-name">CONTACT NUMBER </labl>
-                        <input type="text" id="moth_no" class="table-input">
-                    </div>
-                </div>  
-                <div class="input-row">
-                    <div class="field-group flex-1">
-                        <label class="label-name">PAREN/S' CIVIL STATUS</label>
-                        <div class="grid-checkbox-1line">
-                            <span><input type="checkbox"> Living together</span>
-                            <span><input type="checkbox"> Solo parent</span>
-                            <span><input type="checkbox"> Separated</span>
-                        </div>
-                    </div>
-                    <div class="field-group flex-2">
-                        <label class="label-name">PAREN/S' OTHER INFO</label>
-                        <div class="grid-checkbox">
-                            <span><input type="checkbox"> Person with Disability</span>
-                            <span><input type="checkbox"> Senior Citizen</span>
-                            <span><input type="checkbox"> Sugar Plantation Worker</span>
-                            <span><input type="checkbox"> Indigent</span>
-                            <span><input type="checkbox"> 4P's beneficiary</span>
-                            <span><input type="checkbox"> Victim of armed conflict</span>
-                        </div>
-                    </div>
-                    <div class="field-group flex-1">
-                        <label class="label-name">PAREN/S' UNEMPLOYMENT TYPE</label>
-                        <div class="grid-checkbox-1line">
-                            <span><input type="checkbox"> Laid off (local)</span>
-                            <span><input type="checkbox"> Laid off (overseas)</span>
-                            <span><input type="checkbox"> Not applicable</span>
-                        </div>
-                    </div>
-                </div>       
         </div>
-    </div> 
 
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../js/form1.js"></script>
+        <!-- Sex + Present Address -->
+        <div class="input-row">
+            <div class="field-group flex-1">
+                <label class="label-name">SEX <span class="req">*</span></label>
+                <!-- nsrp_details.sex ENUM('Male','Female') -->
+                <div class="checkbox-group">
+                    <label><input type="radio" name="sex" value="Male" required> Male</label>
+                    <label><input type="radio" name="sex" value="Female"> Female</label>
+                </div>
+            </div>
+            <div class="field-group flex-1">
+                <label class="label-name">PRESENT ADDRESS <span class="req">*</span></label>
+                <!-- IDs match form1.js selectors exactly -->
+                <!-- nsrp_details.pres_street / pres_barangay / pres_city / pres_province -->
+                <input type="text" id="pres_street"   name="pres_street"
+                       class="table-input" placeholder="House No. / Street / Village">
+                <input type="text" id="pres_barangay" name="pres_barangay"
+                       class="table-input" placeholder="Barangay" required>
+                <input type="text" id="pres_city"     name="pres_city"
+                       class="table-input" value="Anini-y" placeholder="Municipality / City" required>
+                <input type="text" id="pres_province" name="pres_province"
+                       class="table-input" value="Antique" placeholder="Province" required>
+            </div>
+        </div>
+
+        <!-- Civil Status + Permanent Address -->
+        <div class="input-row">
+            <div class="field-group flex-1">
+                <label class="label-name">CIVIL STATUS <span class="req">*</span></label>
+                <!-- nsrp_details.civil_status ENUM -->
+                <div class="grid-checkbox">
+                    <span><label><input type="radio" name="civil_status" value="Single" required> Single</label></span>
+                    <span><label><input type="radio" name="civil_status" value="Married"> Married</label></span>
+                    <span><label><input type="radio" name="civil_status" value="Widowed"> Widowed</label></span>
+                    <span><label><input type="radio" name="civil_status" value="Separated"> Separated</label></span>
+                </div>
+            </div>
+            <div class="field-group flex-1">
+                <label class="label-name">
+                    PERMANENT ADDRESS
+                    <small>(Check if same as present)</small>
+                    <!-- ID kept as #same_as_permanent — form1.js depends on this exact ID -->
+                    <input type="checkbox" id="same_as_permanent">
+                </label>
+                <!-- nsrp_details.perm_street / perm_barangay / perm_city / perm_province -->
+                <input type="text" id="perm_street"   name="perm_street"
+                       class="table-input" placeholder="House No. / Street / Village">
+                <input type="text" id="perm_barangay" name="perm_barangay"
+                       class="table-input" placeholder="Barangay">
+                <input type="text" id="perm_city"     name="perm_city"
+                       class="table-input" placeholder="Municipality / City">
+                <input type="text" id="perm_province" name="perm_province"
+                       class="table-input" placeholder="Province">
+            </div>
+        </div>
+
+        <!-- Contact + Email -->
+        <div class="input-row">
+            <div class="field-group flex-1">
+                <label class="label-name">CONTACT NUMBER</label>
+                <!-- users.contact_number VARCHAR(15) -->
+                <input type="tel" id="contact_number" name="contact_number"
+                       class="table-input" placeholder="09XXXXXXXXX" maxlength="11">
+            </div>
+            <div class="field-group flex-1">
+                <label class="label-name">EMAIL ADDRESS <span class="req">*</span></label>
+                <!-- users.email VARCHAR(150) -->
+                <input type="email" id="email" name="email"
+                       class="table-input" placeholder="yourname@email.com" required>
+            </div>
+        </div>
+
+        <!-- Parent / Guardian -->
+        <div class="section-header" style="margin-top:20px;"><strong>PARENT / GUARDIAN INFORMATION</strong></div>
+
+        <div class="input-row">
+            <div class="field-group flex-1">
+                <!-- nsrp_details.father_name / father_contact -->
+                <label class="label-name">FATHER'S NAME</label>
+                <input type="text" id="father_name" name="father_name"
+                       class="table-input" placeholder="Full name">
+                <label class="label-name" style="margin-top:10px;">CONTACT NUMBER</label>
+                <input type="tel" id="father_contact" name="father_contact"
+                       class="table-input" placeholder="09XXXXXXXXX" maxlength="11">
+            </div>
+            <div class="field-group flex-1">
+                <!-- nsrp_details.mother_name / mother_contact -->
+                <label class="label-name">MOTHER'S NAME</label>
+                <input type="text" id="mother_name" name="mother_name"
+                       class="table-input" placeholder="Full name">
+                <label class="label-name" style="margin-top:10px;">CONTACT NUMBER</label>
+                <input type="tel" id="mother_contact" name="mother_contact"
+                       class="table-input" placeholder="09XXXXXXXXX" maxlength="11">
+            </div>
+        </div>
+
+        <div class="input-row">
+            <div class="field-group flex-1">
+                <label class="label-name">PARENT/S' CIVIL STATUS</label>
+                <!-- nsrp_details.parents_civil_status ENUM -->
+                <div class="grid-checkbox-1line">
+                    <span><label><input type="radio" name="parents_civil_status" value="Living Together"> Living Together</label></span>
+                    <span><label><input type="radio" name="parents_civil_status" value="Solo Parent"> Solo Parent</label></span>
+                    <span><label><input type="radio" name="parents_civil_status" value="Separated"> Separated</label></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── SOCIO-ECONOMIC — exactly 5 booleans from final schema ── -->
+        <div class="section-header" style="margin-top:20px;"><strong>SOCIO-ECONOMIC INFORMATION</strong></div>
+        <p class="socio-note">Check all that apply.</p>
+
+        <!--
+            All id="" and name="" values are exact SQL column names:
+            is_4ps_beneficiary | is_indigent | is_pwd | is_senior_citizen | is_solo_parent
+            DB type: BOOLEAN NOT NULL DEFAULT FALSE
+        -->
+        <div class="socio-grid">
+
+            <label class="socio-card">
+                <input type="checkbox" id="is_4ps_beneficiary"
+                       name="is_4ps_beneficiary" value="1">
+                <div class="socio-body">
+                    <span class="socio-icon">🏠</span>
+                    <strong>4Ps Beneficiary</strong>
+                    <small>Pantawid Pamilyang Pilipino Program</small>
+                </div>
+            </label>
+
+            <label class="socio-card">
+                <input type="checkbox" id="is_indigent"
+                       name="is_indigent" value="1">
+                <div class="socio-body">
+                    <span class="socio-icon">📋</span>
+                    <strong>Indigent</strong>
+                    <small>Registered indigent household</small>
+                </div>
+            </label>
+
+            <label class="socio-card">
+                <input type="checkbox" id="is_pwd"
+                       name="is_pwd" value="1">
+                <div class="socio-body">
+                    <span class="socio-icon">♿</span>
+                    <strong>Person with Disability</strong>
+                    <small>PWD card holder</small>
+                </div>
+            </label>
+
+            <label class="socio-card">
+                <input type="checkbox" id="is_senior_citizen"
+                       name="is_senior_citizen" value="1">
+                <div class="socio-body">
+                    <span class="socio-icon">👴</span>
+                    <strong>Senior Citizen</strong>
+                    <small>60 years old and above</small>
+                </div>
+            </label>
+
+            <label class="socio-card">
+                <input type="checkbox" id="is_solo_parent"
+                       name="is_solo_parent" value="1">
+                <div class="socio-body">
+                    <span class="socio-icon">👨‍👧</span>
+                    <strong>Solo Parent</strong>
+                    <small>Solo parent card holder</small>
+                </div>
+            </label>
+
+        </div><!-- /.socio-grid -->
+
+        <div class="nav-row">
+            <div></div>
+            <button type="button" class="btn-next" onclick="SP.go(2)">
+                Next: Professional Profile &rsaquo;
+            </button>
+        </div>
+
+    </div><!-- /#step-1 -->
+
+
+    <!-- ══════════════════════════════════════════════════════════
+         STEP 2 — PROFESSIONAL PROFILE
+         DB: employment_details (clean schema — no job preference)
+    ══════════════════════════════════════════════════════════ -->
+    <div class="page-container step-panel" id="step-2" style="display:none;">
+
+        <div class="section-header"><strong>EMPLOYMENT STATUS</strong></div>
+
+        <div class="input-row">
+
+            <!-- Employed -->
+            <div class="field-group flex-1">
+                <div class="checkbox-group-1line">
+                    <!-- employment_details.employment_status ENUM('Employed','Unemployed') -->
+                    <label>
+                        <input type="radio" name="employment_status"
+                               id="status_employed" value="Employed" required
+                               onchange="SP.toggleStatus('employed')">
+                        <strong>Employed</strong>
+                    </label>
+                </div>
+
+                <div id="employed_sub" class="sub-panel" style="display:none;">
+                    <p class="sub-panel-label">Type of Employment</p>
+                    <!-- employment_details.employment_type ENUM -->
+                    <div class="grid-checkbox-1line">
+                        <label>
+                            <input type="radio" name="employment_type"
+                                   value="Wage Employed"> Wage Employed
+                        </label>
+                        <label>
+                            <input type="radio" name="employment_type"
+                                   value="Self Employed"
+                                   onchange="SP.toggleSelfSpec(this)"> Self Employed
+                        </label>
+                    </div>
+                    <!-- employment_details.self_employed_spec VARCHAR(100) -->
+                    <div id="self_spec_wrap" class="grid-checkbox-tab" style="display:none;margin-top:8px;">
+                        <label><input type="radio" name="self_employed_spec" value="Kasambahay"> Kasambahay</label>
+                        <label><input type="radio" name="self_employed_spec" value="Electrician"> Electrician</label>
+                        <label><input type="radio" name="self_employed_spec" value="Carpenter"> Carpenter (Panday)</label>
+                        <label><input type="radio" name="self_employed_spec" value="Nanny"> Nanny</label>
+                        <label><input type="radio" name="self_employed_spec" value="Other"> Other</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Unemployed -->
+            <div class="field-group flex-1">
+                <div class="checkbox-group-1line">
+                    <label>
+                        <input type="radio" name="employment_status"
+                               id="status_unemployed" value="Unemployed"
+                               onchange="SP.toggleStatus('unemployed')">
+                        <strong>Unemployed</strong>
+                    </label>
+                </div>
+
+                <div id="unemployed_sub" class="sub-panel" style="display:none;">
+                    <p class="sub-panel-label">Reason for Unemployment</p>
+                    <!-- employment_details.unemployment_reason ENUM -->
+                    <div class="grid-checkbox-1line">
+                        <label><input type="radio" name="unemployment_reason" value="New Entrant/Fresh Graduate"> New Entrant / Fresh Graduate</label>
+                        <label><input type="radio" name="unemployment_reason" value="Finished Contract"> Finished Contract</label>
+                        <label><input type="radio" name="unemployment_reason" value="Resigned"> Resigned</label>
+                        <label><input type="radio" name="unemployment_reason" value="Retired"> Retired</label>
+                        <label><input type="radio" name="unemployment_reason" value="Terminated/Laid Off due to Calamity"> Terminated / Laid Off — Calamity</label>
+                        <label><input type="radio" name="unemployment_reason" value="Terminated/Laid Off (Local)"> Terminated / Laid Off (Local)</label>
+                        <label><input type="radio" name="unemployment_reason" value="Terminated/Laid Off (Abroad)"> Terminated / Laid Off (Abroad)</label>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /.input-row -->
+
+        <!-- Educational Background -->
+        <div class="section-header" style="margin-top:20px;"><strong>EDUCATIONAL BACKGROUND</strong></div>
+
+        <div class="input-row">
+            <div class="field-group flex-1">
+                <label class="label-name">HIGHEST EDUCATIONAL ATTAINMENT</label>
+                <!-- employment_details.highest_education ENUM — exact SQL values -->
+                <select id="highest_education" name="highest_education"
+                        class="table-input select-styled">
+                    <option value="">— Select —</option>
+                    <option value="No Formal Education">No Formal Education</option>
+                    <option value="Elementary Undergraduate">Elementary Undergraduate</option>
+                    <option value="Elementary Graduate">Elementary Graduate</option>
+                    <option value="High School Undergraduate">High School Undergraduate</option>
+                    <option value="High School Graduate">High School Graduate</option>
+                    <option value="Vocational/Technical">Vocational / Technical</option>
+                    <option value="College Undergraduate">College Undergraduate</option>
+                    <option value="College Graduate">College Graduate</option>
+                    <option value="Post Graduate">Post Graduate</option>
+                </select>
+            </div>
+            <div class="field-group flex-1">
+                <label class="label-name">YEAR GRADUATED / LAST ATTENDED</label>
+                <!-- employment_details.year_graduated YEAR -->
+                <input type="number" id="year_graduated" name="year_graduated"
+                       class="table-input" placeholder="e.g. 2018"
+                       min="1950" max="2099">
+            </div>
+        </div>
+
+        <div class="input-row">
+            <div class="field-group flex-1">
+                <label class="label-name">SCHOOL LAST ATTENDED</label>
+                <!-- employment_details.school_last_attended VARCHAR(150) -->
+                <input type="text" id="school_last_attended" name="school_last_attended"
+                       class="table-input" placeholder="Name of school or institution">
+            </div>
+            <div class="field-group flex-1">
+                <label class="label-name">COURSE / STRAND COMPLETED</label>
+                <!-- employment_details.course_completed VARCHAR(150) -->
+                <input type="text" id="course_completed" name="course_completed"
+                       class="table-input" placeholder="e.g. BSIT, TESDA NC II">
+            </div>
+        </div>
+
+        <!-- Employment History -->
+        <div class="section-header" style="margin-top:20px;"><strong>EMPLOYMENT HISTORY</strong></div>
+
+        <div class="field-group" style="margin-bottom:16px;">
+            <label class="label-name">Briefly describe your previous work experience</label>
+            <!-- employment_details.employment_history TEXT -->
+            <textarea id="employment_history" name="employment_history"
+                      class="table-input textarea-styled" rows="5"
+                      placeholder="e.g. Worked as an electrician in Barangay Poblacion for 3 years. Handled residential wiring and socket repairs."></textarea>
+        </div>
+
+        <div class="nav-row">
+            <button type="button" class="btn-back" onclick="SP.go(1)">&lsaquo; Back</button>
+            <button type="button" class="btn-next" onclick="SP.go(3)">Next: Service Selection &rsaquo;</button>
+        </div>
+
+    </div><!-- /#step-2 -->
+
+
+    <!-- ══════════════════════════════════════════════════════════
+         STEP 3 — SERVICE SELECTION
+         DB: providers.trade_category ENUM — exactly 3 values
+    ══════════════════════════════════════════════════════════ -->
+    <div class="page-container step-panel" id="step-3" style="display:none;">
+
+        <div class="section-header"><strong>SERVICE / TRADE SELECTION</strong></div>
+        <p class="step-intro-text">
+            Select the primary service you will offer. This determines which
+            customers can discover your verified profile on CommuniServe.
+        </p>
+
+        <!-- providers.trade_category — 3 cards only -->
+        <div class="trade-grid">
+
+            <label class="trade-card">
+                <input type="radio" name="trade_category" value="Carpenter" required>
+                <div class="trade-face">
+                    <div class="trade-emoji">🪚</div>
+                    <strong class="trade-name">Carpenter</strong>
+                    <span class="trade-local">Panday</span>
+                    <p class="trade-desc">Furniture making, house framing,<br>wood repairs &amp; general carpentry.</p>
+                    <span class="trade-badge">&#10003; Selected</span>
+                </div>
+            </label>
+
+            <label class="trade-card">
+                <input type="radio" name="trade_category" value="Electrician">
+                <div class="trade-face">
+                    <div class="trade-emoji">⚡</div>
+                    <strong class="trade-name">Electrician</strong>
+                    <span class="trade-local">Elektrisyano</span>
+                    <p class="trade-desc">Wiring, outlet repair, panel setup<br>&amp; electrical maintenance.</p>
+                    <span class="trade-badge">&#10003; Selected</span>
+                </div>
+            </label>
+
+            <label class="trade-card">
+                <input type="radio" name="trade_category" value="Kasambahay">
+                <div class="trade-face">
+                    <div class="trade-emoji">🧹</div>
+                    <strong class="trade-name">Kasambahay</strong>
+                    <span class="trade-local">Household Helper</span>
+                    <p class="trade-desc">Cleaning, cooking, laundry,<br>caregiving &amp; household tasks.</p>
+                    <span class="trade-badge">&#10003; Selected</span>
+                </div>
+            </label>
+
+        </div><!-- /.trade-grid -->
+
+        <div class="nav-row">
+            <button type="button" class="btn-back" onclick="SP.go(2)">&lsaquo; Back</button>
+            <button type="button" class="btn-next" onclick="SP.go(4)">Next: Assessment &rsaquo;</button>
+        </div>
+
+    </div><!-- /#step-3 -->
+
+
+    <!-- ══════════════════════════════════════════════════════════
+         STEP 4 — ASSESSMENT PLACEHOLDER
+         DB: assessments table — managed by LGU Admin, not self-filled
+    ══════════════════════════════════════════════════════════ -->
+    <div class="page-container step-panel" id="step-4" style="display:none;">
+
+        <div class="section-header"><strong>COMPETENCY ASSESSMENT</strong></div>
+
+        <div class="assessment-block">
+            <div class="assessment-icon">📋</div>
+            <h2 class="assessment-title">LGU-Managed Assessment</h2>
+            <p class="assessment-body">
+                Your skills assessment is managed by the LGU Admin (PESO Office).
+                Click <strong>"Start Test"</strong> to proceed to the evaluation.
+                You will be contacted by the PESO Office for scheduling once your
+                registration has been reviewed.
+            </p>
+
+            <div class="assessment-info-strip">
+                <div class="ainfo-item">
+                    <span class="ainfo-icon">🏛</span>
+                    <div>
+                        <strong>Administered by</strong>
+                        <small>PESO Office — Anini-y LGU</small>
+                    </div>
+                </div>
+                <div class="ainfo-item">
+                    <span class="ainfo-icon">📅</span>
+                    <div>
+                        <strong>Scheduling</strong>
+                        <small>Set by Admin after form review</small>
+                    </div>
+                </div>
+                <div class="ainfo-item">
+                    <span class="ainfo-icon">✅</span>
+                    <div>
+                        <strong>Result Recorded As</strong>
+                        <small>Passed / Failed / Pending</small>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="btn-start-test" onclick="SP.go(5)">
+                Start Test &rsaquo;
+            </button>
+        </div>
+
+        <div class="nav-row">
+            <button type="button" class="btn-back" onclick="SP.go(3)">&lsaquo; Back</button>
+            <div></div>
+        </div>
+
+    </div><!-- /#step-4 -->
+
+
+    <!-- ══════════════════════════════════════════════════════════
+         STEP 5 — FILE ATTACHMENT
+    ══════════════════════════════════════════════════════════ -->
+    <div class="page-container step-panel" id="step-5" style="display:none;">
+
+        <div class="section-header"><strong>FILE ATTACHMENT</strong></div>
+        <p class="step-intro-text">
+            Upload clear, legible copies of your IDs and credentials.
+            Accepted: <strong>JPG, PNG, PDF</strong>. Max: <strong>5 MB per file</strong>.
+        </p>
+
+        <div class="upload-grid">
+
+            <div class="upload-zone" id="zone-nid">
+                <span class="upload-zone-icon">🪪</span>
+                <p class="upload-zone-title">National ID <span class="req">*</span></p>
+                <p class="upload-zone-hint">PhilSys / PSA — front &amp; back</p>
+                <label class="btn-file-choose">
+                    Choose File
+                    <input type="file" name="file_national_id"
+                           accept=".jpg,.jpeg,.png,.pdf" hidden
+                           onchange="SP.fileChosen(this,'prev-nid','zone-nid')">
+                </label>
+                <p class="upload-prev-name" id="prev-nid"></p>
+            </div>
+
+            <div class="upload-zone" id="zone-photo">
+                <span class="upload-zone-icon">📷</span>
+                <p class="upload-zone-title">2×2 ID Photo <span class="req">*</span></p>
+                <p class="upload-zone-hint">Recent photo, white background</p>
+                <label class="btn-file-choose">
+                    Choose File
+                    <input type="file" name="file_photo"
+                           accept=".jpg,.jpeg,.png" hidden
+                           onchange="SP.fileChosen(this,'prev-photo','zone-photo')">
+                </label>
+                <p class="upload-prev-name" id="prev-photo"></p>
+            </div>
+
+           <div class="upload-zone" id="zone-natid-back">
+                <span class="upload-zone-icon">🪪</span>
+                <p class="upload-zone-title">National ID (Back View)</p>
+                <p class="upload-zone-hint">Please upload a clear photo of the back of your National ID.</p>
+                <label class="btn-file-choose">
+                    Choose File
+                    <input type="file" name="file_national_id_back"
+                        accept=".jpg,.jpeg,.png,.pdf" hidden
+                        onchange="SP.fileChosen(this,'prev-natid-back','zone-natid-back')">
+                </label>
+                <p class="upload-prev-name" id="prev-natid-back"></p>
+            </div>
+
+            <div class="upload-zone" id="zone-cert">
+                <span class="upload-zone-icon">📜</span>
+                <p class="upload-zone-title">Trade Certificate / TESDA NC</p>
+                <p class="upload-zone-hint">TESDA NC or any trade qualification</p>
+                <label class="btn-file-choose">
+                    Choose File
+                    <input type="file" name="file_certificate"
+                           accept=".jpg,.jpeg,.png,.pdf" hidden
+                           onchange="SP.fileChosen(this,'prev-cert','zone-cert')">
+                </label>
+                <p class="upload-prev-name" id="prev-cert"></p>
+            </div>
+
+        </div><!-- /.upload-grid -->
+
+        <div class="terms-block">
+            <label class="terms-check-label">
+                <input type="checkbox" id="terms_agreed" name="terms_agreed" required>
+                I certify that all information I have provided is true and accurate.
+                I understand that false information may result in disqualification
+                and permanent removal from the CommuniServe registry.
+            </label>
+        </div>
+
+        <div class="nav-row">
+            <button type="button" class="btn-back" onclick="SP.go(4)">&lsaquo; Back</button>
+            <button type="button" class="btn-submit" id="btnSubmit"
+                    onclick="SP.submit()">Submit Registration &#10003;</button>
+        </div>
+
+        <div id="submitSuccess" class="submit-success" style="display:none;">
+            <div class="success-circle">✓</div>
+            <h2>Application Submitted!</h2>
+            <p>Your registration has been received by the PESO Office.
+               You will be contacted for scheduling your competency assessment.
+               Your profile will go live once the LGU Admin approves your account.</p>
+            <a href="../../Pages/html/login.html" class="btn-next"
+               style="display:inline-block;text-decoration:none;margin-top:20px;">
+                Go to Login &rsaquo;
+            </a>
+        </div>
+
+    </div><!-- /#step-5 -->
+
+</div><!-- /.page-background -->
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Existing address-sync — #same_as_permanent + pres_* / perm_* IDs preserved -->
+<script src="../js/form1.js"></script>
+<!-- New step logic -->
+<script src="../js/sp_steps.js"></script>
 </body>
 </html>
