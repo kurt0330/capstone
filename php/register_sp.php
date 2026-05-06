@@ -513,6 +513,6 @@ try {
         'success' => false,
         'error'   => 'Registration failed due to a server error. Please try again.',
         // Uncomment for local debug only:
-        // 'debug' => $e->getMessage(),
+        //'debug' => $e->getMessage(),
     ]);
 }

@@ -4,16 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CommuniServe | Service Provider Registration</title>
-    <!--
-    ╔══════════════════════════════════════════════════════════╗
-    ║  FILE : /SP/html/form1.html                              ║
-    ║  USES : ../css/global.css   ← your file, untouched      ║
-    ║         ../css/form.css     ← your file, untouched      ║
-    ║         ../css/sp_steps.css ← NEW, additive only        ║
-    ║         ../js/form1.js      ← your address-sync, kept   ║
-    ║         ../js/sp_steps.js   ← NEW step + validation     ║
-    ╚══════════════════════════════════════════════════════════╝
-    -->
     <link rel="stylesheet" href="../css/global.css">
     <link rel="stylesheet" href="../css/form.css">
     <link rel="stylesheet" href="../css/sp_steps.css">
@@ -28,10 +18,7 @@
 <!-- PAGE WRAPPER — form.css: .page-background -->
 <div class="page-background">
 
-    <!-- ══ PROGRESS BAR ══
-         Reuses existing: .step-progress-wrapper .main-circle
-                          .segmented-bar .nav-btn .nav-btn.active
-         sp_steps.js adds/removes .active and .done on nav-btns  -->
+    <!-- ══ PROGRESS BAR ══  -->
     <div class="step-progress-wrapper">
         <div class="main-circle" id="stepCircle">1</div>
         <div class="segmented-bar">
@@ -641,9 +628,8 @@
             </a>
         </div>
 
-    </div><!-- /#step-5 -->
-
-</div><!-- /.page-background -->
+    </div>
+</div>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Existing address-sync — #same_as_permanent + pres_* / perm_* IDs preserved -->

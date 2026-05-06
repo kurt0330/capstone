@@ -21,7 +21,7 @@
 define('DB_HOST', 'localhost');
 define('DB_NAME', 'communiserve');
 define('DB_USER', 'root');
-define('DB_PASS', '');          // ← update if you have a password
+define('DB_PASS', '');       
 define('DB_CHARSET', 'utf8mb4');
 
 // ── PDO options ─────────────────────────────────────────────────
