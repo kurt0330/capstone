@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CommuniServe | Admin Dashboard</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../../SP/css/global.css">
+    <link rel="stylesheet" href="../css/admin_dashboard.css">
+</head>
+<body>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!--  TOP HEADER (inherits .main-header / .web-title) -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <header class="main-header d-flex align-items-center justify-content-between px-4">
+        <h1 class="web-title">COMMUNISERVE</h1>
+        <div class="admin-meta d-flex align-items-center gap-3">
+            <span class="admin-badge"><i class="bi bi-shield-lock-fill me-1"></i>Admin Panel</span>
+            <div class="admin-avatar" title="Admin">A</div>
+        </div>
+    </header>
+
+    <!-- ═══════════════════════════════════════════════ -->
+    <!--  LAYOUT WRAPPER                                 -->
+    <!-- ═══════════════════════════════════════════════ -->
+    <div class="dashboard-wrapper">
+
+        <!-- ─── SIDEBAR ─────────────────────────────── -->
+        <aside class="admin-sidebar">
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-section-label">Main</li>
+
+                    <li class="nav-item active">
+                        <a href="admin_dashboard.html">
+                            <i class="bi bi-speedometer2"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#">
+                            <i class="bi bi-people-fill"></i>
+                            <span>Service Providers</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#">
+                            <i class="bi bi-person-lines-fill"></i>
+                            <span>Clients</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-section-label">System</li>
+
+                    <li class="nav-item">
+                        <a href="#">
+                            <i class="bi bi-gear-fill"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+
+                    <li class="nav-item danger">
+                        <a href="#">
+                            <i class="bi bi-box-arrow-left"></i>
+                            <span>Logout</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </aside>
+
+        <!-- ─── MAIN CONTENT ─────────────────────────── -->
+        <main class="admin-main">
+
+            <!-- Page Title + Stats Row -->
+            <div class="page-title-bar">
+                <div>
+                    <h2 class="page-heading">Dashboard</h2>
+                    <p class="page-sub">Welcome back, <strong>Admin</strong>. Here's what needs your attention.</p>
+                </div>
+            </div>
+
+            <!-- Stat Cards -->
+            <div class="stat-cards-row">
+                <div class="stat-card">
+                    <div class="stat-icon pending-icon"><i class="bi bi-hourglass-split"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="statPending">—</span>
+                        <span class="stat-label">Pending Requests</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon approved-icon"><i class="bi bi-patch-check-fill"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="statApproved">—</span>
+                        <span class="stat-label">Approved SPs</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon clients-icon"><i class="bi bi-person-fill"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="statClients">—</span>
+                        <span class="stat-label">Registered Clients</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon jobs-icon"><i class="bi bi-briefcase-fill"></i></div>
+                    <div class="stat-info">
+                        <span class="stat-value" id="statJobs">—</span>
+                        <span class="stat-label">Jobs Completed</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ─── TABS ─────────────────────────────── -->
+            <div class="table-card">
+
+                <ul class="nav nav-tabs cs-tabs" id="dashboardTabs" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active" id="pending-tab"
+                            data-bs-toggle="tab" data-bs-target="#pendingPane"
+                            type="button" role="tab">
+                            <i class="bi bi-hourglass-split me-1"></i>
+                            Pending Requests
+                            <span class="tab-badge" id="pendingBadge">0</span>
+                        </button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="approved-tab"
+                            data-bs-toggle="tab" data-bs-target="#approvedPane"
+                            type="button" role="tab">
+                            <i class="bi bi-patch-check-fill me-1"></i>
+                            Approved SPs
+                        </button>
+                    </li>
+                </ul>
+
+                <div class="tab-content cs-tab-content" id="dashboardTabsContent">
+
+                    <!-- ══ PENDING TAB ══════════════════════════ -->
+                    <div class="tab-pane fade show active" id="pendingPane" role="tabpanel">
+
+                        <!-- Table Toolbar -->
+                        <div class="table-toolbar">
+                            <div class="search-wrap">
+                                <i class="bi bi-search search-icon"></i>
+                                <input type="text" id="pendingSearch"
+                                    class="cs-search-input" placeholder="Search by name or trade…">
+                            </div>
+                            <select class="cs-filter-select" id="pendingTradeFilter">
+                                <option value="">All Trades</option>
+                                <option value="Carpenter">Carpenter</option>
+                                <option value="Electrician">Electrician</option>
+                                <option value="Nanny">Nanny</option>
+                            </select>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table cs-table" id="pendingTable">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Full Name</th>
+                                        <th>Trade / Skill</th>
+                                        <th>Barangay</th>
+                                        <th>Date Submitted</th>
+                                        <th>National ID</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="pendingTableBody">
+                                    <!-- Populated via JS/AJAX later -->
+                                    <tr class="placeholder-row">
+                                        <td colspan="7" class="text-center py-5">
+                                            <i class="bi bi-inbox fs-2 d-block mb-2 text-muted"></i>
+                                            <span class="text-muted">No pending requests yet.</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- ══ END PENDING TAB ══════════════════════ -->
+
+                    <!-- ══ APPROVED TAB ═════════════════════════ -->
+                    <div class="tab-pane fade" id="approvedPane" role="tabpanel">
+
+                        <!-- Table Toolbar -->
+                        <div class="table-toolbar">
+                            <div class="search-wrap">
+                                <i class="bi bi-search search-icon"></i>
+                                <input type="text" id="approvedSearch"
+                                    class="cs-search-input" placeholder="Search approved SPs…">
+                            </div>
+                            <select class="cs-filter-select" id="approvedTradeFilter">
+                                <option value="">All Trades</option>
+                                <option value="Carpenter">Carpenter</option>
+                                <option value="Electrician">Electrician</option>
+                                <option value="Nanny">Nanny</option>
+                            </select>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table cs-table" id="approvedTable">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Full Name</th>
+                                        <th>Trade / Skill</th>
+                                        <th>Barangay</th>
+                                        <th>Date Approved</th>
+                                        <th>Rating</th>
+                                        <th class="text-center">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="approvedTableBody">
+                                    <!-- Populated via JS/AJAX later -->
+                                    <tr class="placeholder-row">
+                                        <td colspan="7" class="text-center py-5">
+                                            <i class="bi bi-person-check fs-2 d-block mb-2 text-muted"></i>
+                                            <span class="text-muted">No approved service providers yet.</span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <!-- ══ END APPROVED TAB ═════════════════════ -->
+
+                </div>
+            </div>
+            <!-- END .table-card -->
+
+        </main>
+        <!-- END .admin-main -->
+
+    </div>
+    <!-- END .dashboard-wrapper -->
+
+
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <!--  SP DETAILS MODAL                                           -->
+    <!--  Triggered by "View" button-->
+    <!-- ═══════════════════════════════════════════════════════════ -->
+    <div class="modal fade" id="spDetailsModal" tabindex="-1"
+         aria-labelledby="spDetailsModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable modal-dialog-centered">
+            <div class="modal-content cs-modal">
+
+                <div class="modal-header cs-modal-header">
+                    <div>
+                        <h5 class="modal-title" id="spDetailsModalLabel">
+                            <i class="bi bi-person-badge-fill me-2"></i>
+                            Applicant Details
+                        </h5>
+                        <small class="modal-subtitle" id="modalSubtitle">NSRP / National ID Review</small>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white"
+                            data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <div class="modal-body cs-modal-body">
+
+                    <!-- Personal Info Section -->
+                    <div class="modal-section-label">
+                        <i class="bi bi-person-fill me-1"></i> Personal Information
+                    </div>
+                    <div class="modal-info-grid" id="modalPersonalInfo">
+                        <!-- JS injects rows: <div class="info-row"><span>Label</span><span>Value</span></div> -->
+                        <div class="info-row placeholder-row-modal">
+                            <span class="text-muted">Loading details…</span>
+                        </div>
+                    </div>
+
+                    <!-- Professional Profile Section -->
+                    <div class="modal-section-label mt-3">
+                        <i class="bi bi-briefcase-fill me-1"></i> Professional Profile
+                    </div>
+                    <div class="modal-info-grid" id="modalProfessionalInfo">
+                        <div class="info-row placeholder-row-modal">
+                            <span class="text-muted">Loading details…</span>
+                        </div>
+                    </div>
+
+                    <!-- Uploaded Documents Section -->
+                    <div class="modal-section-label mt-3">
+                        <i class="bi bi-file-earmark-check-fill me-1"></i> Uploaded Documents
+                    </div>
+                    <div class="modal-docs-grid" id="modalDocs">
+                        <!-- Slot 1: National ID Front -->
+                        <div class="doc-slot">
+                            <span class="doc-label">National ID — Front</span>
+                            <div class="doc-preview" id="docNationalIdFront">
+                                <i class="bi bi-image text-muted fs-3"></i>
+                                <span class="text-muted small">No file loaded</span>
+                            </div>
+                        </div>
+                        <!-- Slot 2: National ID Back -->
+                        <div class="doc-slot">
+                            <span class="doc-label">National ID — Back</span>
+                            <div class="doc-preview" id="docNationalIdBack">
+                                <i class="bi bi-image text-muted fs-3"></i>
+                                <span class="text-muted small">No file loaded</span>
+                            </div>
+                        </div>
+                        <!-- Slot 3: NSRP / DOLE Form -->
+                        <div class="doc-slot doc-slot-full">
+                            <span class="doc-label">DOLE Registration Form (NSRP)</span>
+                            <div class="doc-preview doc-preview-tall" id="docNSRP">
+                                <i class="bi bi-file-earmark-text text-muted fs-3"></i>
+                                <span class="text-muted small">No file loaded</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer cs-modal-footer">
+                    <!-- These buttons will be wired to AJAX calls in Phase 2 Step 2 -->
+                    <button type="button" class="btn cs-btn-secondary" data-bs-dismiss="modal">
+                        <i class="bi bi-x-circle me-1"></i> Close
+                    </button>
+                    <button type="button" class="btn cs-btn-danger" id="modalRejectBtn">
+                        <i class="bi bi-x-octagon-fill me-1"></i> Reject
+                    </button>
+                    <button type="button" class="btn cs-btn-approve" id="modalApproveBtn">
+                        <i class="bi bi-patch-check-fill me-1"></i> Approve
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- END #spDetailsModal -->
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+    <script src="../js/admin_dashboard.js"></script>
+
+</body>
+</html>

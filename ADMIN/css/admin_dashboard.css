@@ -1,0 +1,659 @@
+/* ─── LAYOUT ──────────────────────────────────────────── */
+
+.dashboard-wrapper {
+    display: flex;
+    min-height: 100vh;
+    padding-top: 90px; /* clears .main-header fixed height */
+    background-color: #f0f0f0;
+}
+
+/* ─── HEADER EXTRAS ───────────────────────────────────── */
+
+.admin-badge {
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    background-color: rgba(255, 255, 255, 0.15);
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+}
+
+.admin-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background-color: #fff;
+    color: #0504AA;
+    font-weight: 700;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+/* ─── SIDEBAR ─────────────────────────────────────────── */
+
+.admin-sidebar {
+    width: 230px;
+    flex-shrink: 0;
+    background-color: #ffffff;
+    border-right: 1px solid #e0e0e0;
+    padding: 24px 0;
+    position: sticky;
+    top: 90px;
+    height: calc(100vh - 90px);
+    overflow-y: auto;
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-section-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #aaa;
+    padding: 16px 22px 6px;
+}
+
+.sidebar-nav .nav-item a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 10px 22px;
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #444;
+    text-decoration: none;
+    border-left: 3px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.sidebar-nav .nav-item a i {
+    font-size: 16px;
+    width: 18px;
+    text-align: center;
+}
+
+.sidebar-nav .nav-item a:hover {
+    background-color: #eef0ff;
+    color: #0504AA;
+    border-left-color: #0504AA;
+}
+
+.sidebar-nav .nav-item.active a {
+    background-color: #eef0ff;
+    color: #0504AA;
+    border-left-color: #0504AA;
+}
+
+.sidebar-nav .nav-item.danger a:hover {
+    background-color: #fff0f0;
+    color: #E24B4A;
+    border-left-color: #E24B4A;
+}
+
+/* ─── MAIN CONTENT ────────────────────────────────────── */
+
+.admin-main {
+    flex: 1;
+    padding: 30px 32px;
+    min-width: 0;
+}
+
+/* ─── PAGE TITLE BAR ──────────────────────────────────── */
+
+.page-title-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+}
+
+.page-heading {
+    font-size: 22px;
+    font-weight: 700;
+    color: #0504AA;
+    margin: 0 0 2px;
+}
+
+.page-sub {
+    font-size: 13px;
+    color: #777;
+    margin: 0;
+}
+
+/* ─── STAT CARDS ──────────────────────────────────────── */
+
+.stat-cards-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 28px;
+}
+
+.stat-card {
+    background: #fff;
+    border-radius: 10px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    border-left: 4px solid transparent;
+}
+
+.stat-icon {
+    width: 46px;
+    height: 46px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+.pending-icon  { background-color: #fff8e6; color: #e6a817; }
+.approved-icon { background-color: #e6f7f1; color: #1D9E75; }
+.clients-icon  { background-color: #eef0ff; color: #0504AA; }
+.jobs-icon     { background-color: #fdeaea; color: #E24B4A; }
+
+.stat-card:nth-child(1) { border-left-color: #e6a817; }
+.stat-card:nth-child(2) { border-left-color: #1D9E75; }
+.stat-card:nth-child(3) { border-left-color: #0504AA; }
+.stat-card:nth-child(4) { border-left-color: #E24B4A; }
+
+.stat-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-value {
+    font-size: 26px;
+    font-weight: 700;
+    color: #222;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 12px;
+    color: #888;
+    margin-top: 4px;
+    font-weight: 600;
+}
+
+/* ─── TABLE CARD ──────────────────────────────────────── */
+
+.table-card {
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    overflow: hidden;
+}
+
+/* ─── TABS ────────────────────────────────────────────── */
+
+.cs-tabs {
+    padding: 16px 20px 0;
+    border-bottom: 2px solid #e8e8e8;
+    gap: 4px;
+}
+
+.cs-tabs .nav-link {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: #777;
+    border: none;
+    border-bottom: 3px solid transparent;
+    border-radius: 0;
+    padding: 8px 18px;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.2s;
+}
+
+.cs-tabs .nav-link:hover {
+    color: #0504AA;
+    border-bottom-color: #c0c4f7;
+}
+
+.cs-tabs .nav-link.active {
+    color: #0504AA;
+    border-bottom: 3px solid #0504AA;
+    background: transparent;
+}
+
+.tab-badge {
+    background-color: #E24B4A;
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 1px 7px;
+    border-radius: 20px;
+    line-height: 1.6;
+}
+
+.cs-tab-content {
+    padding: 20px;
+}
+
+/* ─── TABLE TOOLBAR ───────────────────────────────────── */
+
+.table-toolbar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+}
+
+.search-wrap {
+    position: relative;
+    flex: 1;
+    max-width: 320px;
+}
+
+.search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #aaa;
+    font-size: 14px;
+}
+
+.cs-search-input {
+    width: 100%;
+    padding: 8px 12px 8px 32px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: Arial, sans-serif;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.cs-search-input:focus {
+    border-color: #0504AA;
+}
+
+.cs-filter-select {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 13px;
+    font-family: Arial, sans-serif;
+    outline: none;
+    color: #444;
+    cursor: pointer;
+    transition: border-color 0.2s;
+}
+
+.cs-filter-select:focus {
+    border-color: #0504AA;
+}
+
+/* ─── DATA TABLE ──────────────────────────────────────── */
+
+.cs-table {
+    font-size: 13.5px;
+    margin-bottom: 0;
+}
+
+.cs-table thead th {
+    background-color: #f4f6ff;
+    color: #0504AA;
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #dce0f5;
+    padding: 10px 14px;
+    white-space: nowrap;
+}
+
+.cs-table tbody td {
+    padding: 12px 14px;
+    vertical-align: middle;
+    border-bottom: 1px solid #f0f0f0;
+    color: #333;
+}
+
+.cs-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.cs-table tbody tr:hover td {
+    background-color: #fafbff;
+}
+
+/* Action buttons in the table */
+.btn-view {
+    background-color: #0504AA;
+    color: #fff;
+    border: none;
+    padding: 5px 13px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-view:hover { opacity: 0.85; }
+
+.btn-approve {
+    background-color: #1D9E75;
+    color: #fff;
+    border: none;
+    padding: 5px 13px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-approve:hover { opacity: 0.85; }
+
+.btn-reject {
+    background-color: #E24B4A;
+    color: #fff;
+    border: none;
+    padding: 5px 13px;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn-reject:hover { opacity: 0.85; }
+
+/* ─── MODAL ───────────────────────────────────────────── */
+
+.cs-modal {
+    border: none;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.cs-modal-header {
+    background-color: #0504AA;
+    color: white;
+    padding: 16px 22px;
+    border-bottom: none;
+}
+
+.cs-modal-header .modal-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: white;
+    margin: 0;
+}
+
+.modal-subtitle {
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+}
+
+.cs-modal-body {
+    padding: 22px 24px;
+    background-color: #fafafa;
+}
+
+.modal-section-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: #0504AA;
+    border-bottom: 2px solid #e8e8f5;
+    padding-bottom: 6px;
+    margin-bottom: 14px;
+}
+
+.modal-info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 20px;
+    margin-bottom: 6px;
+}
+
+.info-row {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.info-row span:first-child {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #888;
+}
+
+.info-row span:last-child {
+    font-size: 14px;
+    color: #222;
+    font-weight: 500;
+}
+
+/* Document slots */
+.modal-docs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+}
+
+.doc-slot-full {
+    grid-column: 1 / -1;
+}
+
+.doc-slot {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.doc-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #555;
+}
+
+.doc-preview {
+    border: 2px dashed #cdd1e8;
+    border-radius: 8px;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    background-color: #f4f6ff;
+    overflow: hidden;
+}
+
+.doc-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.doc-preview-tall {
+    height: 200px;
+}
+
+/* Modal footer buttons */
+.cs-modal-footer {
+    background-color: #fff;
+    border-top: 1px solid #eee;
+    padding: 14px 22px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.cs-btn-secondary {
+    background-color: transparent;
+    border: 2px solid #ccc;
+    color: #555;
+    font-weight: 600;
+    font-size: 13px;
+    border-radius: 6px;
+    padding: 7px 18px;
+    transition: all 0.2s;
+}
+
+.cs-btn-secondary:hover {
+    border-color: #999;
+    color: #333;
+}
+
+.cs-btn-danger {
+    background-color: #E24B4A;
+    border: none;
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
+    border-radius: 6px;
+    padding: 7px 18px;
+    transition: opacity 0.2s;
+}
+
+.cs-btn-danger:hover { opacity: 0.88; color: white; }
+
+.cs-btn-approve {
+    background-color: #1D9E75;
+    border: none;
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
+    border-radius: 6px;
+    padding: 7px 18px;
+    transition: opacity 0.2s;
+}
+
+.cs-btn-approve:hover { opacity: 0.88; color: white; }
+
+/* ─── RESPONSIVE ──────────────────────────────────────── */
+
+@media (max-width: 992px) {
+    .stat-cards-row { grid-template-columns: repeat(2, 1fr); }
+    .admin-sidebar { width: 190px; }
+}
+
+@media (max-width: 768px) {
+    .admin-sidebar { display: none; }
+    .admin-main { padding: 20px 16px; }
+    .stat-cards-row { grid-template-columns: 1fr 1fr; }
+    .modal-info-grid { grid-template-columns: 1fr; }
+    .modal-docs-grid { grid-template-columns: 1fr; }
+    .doc-slot-full { grid-column: auto; }
+}
+
+
+/* Table enhancements */
+.row-num {
+    color: #aaa;
+    font-size: 12px;
+    width: 36px;
+}
+
+.fw-600 { font-weight: 600; }
+
+.trade-pill {
+    display: inline-block;
+    background-color: #eef0ff;
+    color: #0504AA;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+    letter-spacing: 0.3px;
+}
+
+.id-badge {
+    display: inline-flex;
+    align-items: center;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 20px;
+}
+
+.id-badge.verified {
+    background-color: #e6f7f1;
+    color: #1D9E75;
+}
+
+.id-badge.missing {
+    background-color: #fdeaea;
+    color: #E24B4A;
+}
+
+.action-group {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Disabled state for Approve/Reject (Step 3 will enable them) */
+.btn-approve:disabled,
+.btn-reject:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+}
+
+/* Skeleton loading rows */
+.skeleton-row td {
+    padding: 14px 14px;
+}
+
+.skeleton-cell {
+    height: 14px;
+    background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s infinite;
+    border-radius: 4px;
+}
+
+@keyframes shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
+/* Modal document image */
+.doc-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 4px;
+    cursor: zoom-in;
+}
+
+.doc-missing-inline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    color: #E24B4A;
+    font-size: 12px;
+}
+
+.doc-missing-inline i {
+    font-size: 28px;
+}
